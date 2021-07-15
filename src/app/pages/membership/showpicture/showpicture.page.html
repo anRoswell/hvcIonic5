@@ -1,0 +1,25 @@
+<ion-content fullscreen>
+	<ion-item class="close-fake ion-text-center" lines="none">
+		<ion-button (click)="close()" fill="clear">
+			<ion-icon name="close"></ion-icon>
+		</ion-button>
+
+		<ion-button (click)="zoom(true)" fill="clear">
+			<ion-icon slot="start" name="add"></ion-icon>
+			In
+		</ion-button>
+
+		<ion-button (click)="zoom(false)" fill="clear">
+			<ion-icon slot="start" name="remove"></ion-icon>
+			Out
+		</ion-button>
+	</ion-item>
+
+	<ion-slides [options]="sliderOpts" #slider>
+		<ion-slide>
+			<div class="swiper-zoom-container">
+				<img src="{{img}}" />
+			</div>
+		</ion-slide>
+	</ion-slides>
+</ion-content>

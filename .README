@@ -1,0 +1,9 @@
+VHC
+
+//Para producir para el VHC (Web)
+ionic build --prod --base-href /vhc/
+
+SELECT * 
+FROM `atenciones` a
+INNER JOIN patients p ON a.patientId = p.id
+INNER JOIN users u ON a.userIdCreatedAt = u.id;

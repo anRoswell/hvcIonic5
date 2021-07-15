@@ -1,0 +1,263 @@
+<ion-header class="ion-no-border" color="primary">
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>Registrar usuario</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding" fixed>
+	<!-- Logo -->
+	<div class="animated ion-text-center">
+		<div ion-text-center ion-padding-top style="display: flex; justify-content: space-around">
+			<img src="/assets/img/logo-blanco.png" />
+			<div style="display: flex; align-items: center">
+				<h1 class="titleWhite">REGISTRO</h1>
+			</div>
+		</div>
+	</div>
+
+	<form [formGroup]="Form">
+		<input type="hidden" formControlName="hasGeolocation" />
+		<input type="hidden" formControlName="usrLat" />
+		<input type="hidden" formControlName="usrLng" />
+
+		<ion-grid fixed>
+			<ion-item-group>
+				<ion-item-divider class="ion-text-center">
+					<ion-label color="primary"><strong>USUARIO Y PASSWORD</strong></ion-label>
+				</ion-item-divider>
+
+				<!-- CORREO ELECTRONICO -->
+				<ion-row>
+					<ion-col size="12" size-sm size-md="6">
+						<ion-item lines="none">
+							<ion-icon slot="start" name="at-outline" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel">Ingrese correo electronico</ion-label>
+							<ion-input type="text" formControlName="usrEmail" placeholder="Ingrese su E-mail."></ion-input>
+						</ion-item>
+						<div class="validationError ion-text-center">
+							<ng-container *ngFor="let validation of validationsMessage.usrEmail">
+								<div *ngIf="isValid('usrEmail', validation.type)">
+									<small>{{validation.message}}</small>
+								</div>
+							</ng-container>
+						</div>
+					</ion-col>
+					<ion-col size="12" size-sm size-md="6">
+						<ion-item lines="none">
+							<ion-icon slot="start" name="at-outline" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel">Ingrese correo alternativo</ion-label>
+							<ion-input
+								type="text"
+								formControlName="usrEmailAlternative"
+								placeholder="Ingrese e-mail. (No obligatorio)"
+							></ion-input>
+						</ion-item>
+						<!-- <div class="validationError ion-text-center">
+							<ng-container *ngFor="let validation of validationsMessage.usrEmailAlternative">
+								<div *ngIf="isValid('usrEmailAlternative', validation.type)">
+									<small>{{validation.message}}</small>
+								</div>
+							</ng-container>
+						</div> -->
+					</ion-col>
+				</ion-row>
+
+				<!-- PASSWORD-->
+				<ion-row>
+					<ion-col size="6" size-sm size-md="6">
+						<ion-item lines="none">
+							<ion-icon slot="start" name="key-outline" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel">Contraseña</ion-label>
+							<ion-input formControlName="usrPassword" placeholder="Contraseña" type="password"></ion-input>
+						</ion-item>
+						<div class="validationError ion-text-center">
+							<ng-container *ngFor="let validation of validationsMessage.usrPassword">
+								<div *ngIf="isValid('usrPassword', validation.type)">
+									<small>{{validation.message}}</small>
+								</div>
+							</ng-container>
+						</div>
+					</ion-col>
+					<ion-col size="6" size-sm size-md="6">
+						<ion-item lines="none">
+							<ion-icon slot="start" name="key-outline" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel"> Confirmar</ion-label>
+							<ion-input placeholder="Confirmar" formControlName="confirmPassword" type="password"></ion-input>
+						</ion-item>
+						<div
+							class="ion-padding-bottom ion-text-center"
+							*ngIf="Form.get('confirmPassword').hasError('ConfirmPassword') "
+						>
+							<small class="validationError"> El password y su confirmación no concuerdan, verificar!!! </small>
+						</div>
+					</ion-col>
+				</ion-row>
+			</ion-item-group>
+
+			<ion-item-group>
+				<ion-item-divider class="ion-text-center">
+					<ion-label color="primary"><strong>DATOS BASICOS</strong></ion-label>
+				</ion-item-divider>
+				<!-- NOMBRE Y APELLIDO -->
+				<ion-row>
+					<ion-col size="6" size-sm size-md="4">
+						<ion-item lines="none">
+							<ion-icon slot="start" name="person-outline" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel"> Nombre</ion-label>
+							<ion-input formControlName="usrNames" placeholder="Su nombre"></ion-input>
+						</ion-item>
+						<div class="validationError ion-text-center">
+							<ng-container *ngFor="let validation of validationsMessage.usrNames">
+								<div *ngIf="isValid('usrNames', validation.type)">
+									<small>{{validation.message}}</small>
+								</div>
+							</ng-container>
+						</div>
+					</ion-col>
+
+					<ion-col size="6" size-sm size-md="4">
+						<ion-item lines="none">
+							<ion-icon slot="start" name="person-outline" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel"> Apellido</ion-label>
+							<ion-input formControlName="usrLastNames" placeholder="Su apellido"></ion-input>
+						</ion-item>
+						<div class="validationError ion-text-center">
+							<ng-container *ngFor="let validation of validationsMessage.usrLastNames">
+								<div *ngIf="isValid('usrLastNames', validation.type)">
+									<small>{{validation.message}}</small>
+								</div>
+							</ng-container>
+						</div>
+					</ion-col>
+
+					<ion-col size="12" size-sm size-md="4">
+						<!-- <ion-item-divider class="ion-text-center">
+						<ion-label color="primary"><strong>DATOS BASICOS</strong></ion-label>
+					</ion-item-divider> -->
+						<ion-item lines="none">
+							<ion-icon slot="start" name="body" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel"> Tipo de usuario</ion-label>
+							<ion-select placeholder="Seleccione" formControlName="userTypesId">
+								<ion-select-option value="1">Militar</ion-select-option>
+								<ion-select-option value="2">Policia</ion-select-option>
+								<ion-select-option value="3">Estudiante</ion-select-option>
+							</ion-select>
+						</ion-item>
+						<div class="validationError ion-text-center">
+							<ng-container *ngFor="let validation of validationsMessage.userTypesId">
+								<div *ngIf="isValid('userTypesId', validation.type)">
+									<small>{{validation.message}}</small>
+								</div>
+							</ng-container>
+						</div>
+					</ion-col>
+				</ion-row>
+
+				<!-- TIPO DE IDENTIFICACIÓN Y DOCUMENTO DE IDENTIDAD -->
+				<ion-row>
+					<ion-col size="6" size-sm size-md="4">
+						<ion-item lines="none">
+							<ion-icon slot="start" name="document-text-outline" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel">T.I.</ion-label>
+							<ion-select placeholder="Seleccione" formControlName="identificationTypeId">
+								<ion-select-option value="1">Cedula</ion-select-option>
+								<ion-select-option value="2">Extranjera</ion-select-option>
+								<ion-select-option value="3">Pasaporte</ion-select-option>
+							</ion-select>
+						</ion-item>
+						<div class="validationError ion-text-center">
+							<ng-container *ngFor="let validation of validationsMessage.identificationTypeId">
+								<div *ngIf="isValid('identificationTypeId', validation.type)">
+									<small>{{validation.message}}</small>
+								</div>
+							</ng-container>
+						</div>
+					</ion-col>
+
+					<ion-col size="6" size-sm size-md="4">
+						<ion-item lines="none">
+							<ion-icon slot="start" name="document-text-outline" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel">Cédula</ion-label>
+							<ion-input formControlName="usrCedula" placeholder="Ingrese cédula." type="number"></ion-input>
+						</ion-item>
+						<div class="validationError ion-text-center">
+							<ng-container *ngFor="let validation of validationsMessage.usrCedula">
+								<div *ngIf="isValid('usrCedula', validation.type)">
+									<small>{{validation.message}}</small>
+								</div>
+							</ng-container>
+						</div>
+					</ion-col>
+
+					<ion-col size="12" size-sm size-md="4">
+						<ion-item lines="none">
+							<ion-icon slot="start" name="calculator-outline" color="toolBarRed2" class="ionIcon"></ion-icon>
+							<ion-label position="floating" color="ToolBarBlue" class="ionLabel">Nro. Celular</ion-label>
+							<ion-input
+								formControlName="usrNroCelular"
+								placeholder="Ingrese numero de celular."
+								type="number"
+							></ion-input>
+						</ion-item>
+						<div class="validationError ion-text-center">
+							<ng-container *ngFor="let validation of validationsMessage.usrNroCelular">
+								<div *ngIf="isValid('usrNroCelular', validation.type)">
+									<small>{{validation.message}}</small>
+								</div>
+							</ng-container>
+						</div>
+					</ion-col>
+				</ion-row>
+
+				<!-- TERMINOS Y CONDICIONES-->
+				<ion-row>
+					<ion-col size="12">
+						<ion-item lines="none">
+							<ion-text>
+								<a href="https://aseocapital.com.pa/reglamento-general-de-proteccion-de-datos/" target="_blank"
+									>Acepto terminos y condiciones</a
+								>
+							</ion-text>
+							<ion-toggle slot="end" formControlName="usrTerminosCondiciones"></ion-toggle>
+						</ion-item>
+					</ion-col>
+				</ion-row>
+			</ion-item-group>
+
+			<!-- BOTON REGISTRO -->
+			<!-- <ion-row>
+				<ion-col class="ion-text-center"> </ion-col>
+			</ion-row> -->
+		</ion-grid>
+	</form>
+	<!-- <p>{{Form.valid}}</p>
+	<p>Form status: {{ Form.status | json }}</p>
+	<p>{{Form.value | json}}</p> -->
+</ion-content>
+
+<ion-footer class="ion-text-center">
+	<ion-toolbar>
+		<div style="display: flex; justify-content: center">
+			<ion-button type="button" color="medium" expand="full" fill="solid" shape="round">
+				<ion-icon slot="start" name="close-circle-outline"></ion-icon>
+				<strong>CANCELAR</strong>
+			</ion-button>
+			<ion-button
+				[disabled]="!Form.valid"
+				color="primary"
+				type="button"
+				class="btnGreen"
+				fill="solid"
+				shape="round"
+				(click)="validateEmail()"
+			>
+				<ion-icon slot="start" name="person-add"></ion-icon>
+				<strong>REGISTRARSE!</strong>
+			</ion-button>
+		</div>
+		<ion-buttons slot="end"> </ion-buttons>
+	</ion-toolbar>
+</ion-footer>

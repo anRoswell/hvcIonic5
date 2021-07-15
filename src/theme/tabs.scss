@@ -1,0 +1,67 @@
+// Add background to all ion-content components and for ion-tabs compoment
+// this allow to see border-radius in ion-tabs
+ion-content,
+ion-tabs {
+	background: #f4f5fa;
+	--background: #f4f5fa;
+}
+
+.custom-tabs {
+	background-color: var(--ion-color-secondary);
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	height: 55px;
+	display: flex;
+	flex-direction: row;
+	padding: 10px;
+
+	.tab {
+		flex: 1;
+		padding-left: 5px;
+		padding-right: 5px;
+		text-decoration: none;
+
+		.tab-content {
+			display: flex;
+			align-items: center;
+			border-radius: 20px;
+			color: var(--ion-color-tertiary);
+			justify-content: center;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			font-weight: 600;
+			transition: all 0.5s ease;
+
+			.tab-title {
+				width: 0;
+				height: 0;
+				overflow: hidden;
+				transition: all 1s ease;
+			}
+		}
+		// This class display text of the tav
+		&.active {
+			.tab-content {
+				background: var(--ion-color-primary);
+				color: white;
+
+				.tab-title {
+					width: 100%;
+					height: 22px;
+				}
+			}
+		}
+	}
+}
+
+// Add support to dark mode
+@media (prefers-color-scheme: dark) {
+	ion-content,
+	ion-tabs {
+		background: var(--ion-background-color);
+		--background: var(--ion-background-color);
+	}
+	.custom-tabs {
+		background-color: var(--ion-toolbar-background);
+	}
+}

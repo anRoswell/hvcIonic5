@@ -1,0 +1,13 @@
+{
+  "appId": "io.solucionesintegrales.com",
+  "appName": "solucionesIntegrales58",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 8000
+    }
+  },
+  "cordova": {}
+}

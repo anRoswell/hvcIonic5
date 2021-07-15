@@ -1,0 +1,62 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button></ion-back-button>
+		</ion-buttons>
+		<ion-title>Listado atendidos</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<!-- fab placed to the top end -->
+	<ion-fab horizontal="end" vertical="top" slot="fixed" edge>
+		<ion-fab-button (click)="registerConsultPatient()">
+			<ion-icon name="add"></ion-icon>
+		</ion-fab-button>
+	</ion-fab>
+	<ion-row>
+		<ion-col size="6">
+			<ion-item>
+				<ion-label position="floating">Fecha desde:</ion-label>
+				<ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc"></ion-datetime>
+			</ion-item>
+		</ion-col>
+		<ion-col size="6">
+			<ion-item>
+				<ion-label position="floating">Fecha hasta:</ion-label>
+				<ion-datetime value="2019-10-01T15:43:40.394Z" display-timezone="utc"></ion-datetime>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+
+	<div class="ion-text-center ion-margin" *ngIf="!validateAtentionsByPatient()">
+		<h1>Si registros para mostrar</h1>
+		<ion-img [src]="imgNoData"></ion-img>
+	</div>
+
+	<ion-grid fixed *ngIf="validateAtentionsByPatient()">
+		<ion-row>
+			<ion-col size="12">
+				<ion-list>
+					<ion-item button (click)="editAtention(patient)" detail *ngFor="let patient of atentionsByPatient">
+						<ion-avatar slot="start">
+							<img src="./assets/img/grupoServicioDefault.jpeg" />
+						</ion-avatar>
+						<ion-label>
+							<h2>{{patient.name}} {{patient.lastName}}</h2>
+							<h3>Doc: {{patient.document}}</h3>
+							<p>Contrato: {{patient.epsId}}</p>
+							<small>Fecha: {{patient.createdAt}}</small>
+						</ion-label>
+					</ion-item>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-title>Paciente: {{patientSelected.name}} {{patientSelected.lastName}}</ion-title>
+	</ion-toolbar>
+</ion-footer>

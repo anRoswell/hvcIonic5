@@ -1,0 +1,17 @@
+<ion-menu side="start" contentId="main">
+	<ion-header>
+		<ion-toolbar color="primary">
+			<ion-title>Start Menu</ion-title>
+		</ion-toolbar>
+	</ion-header>
+	<ion-content>
+		<ion-list>
+			<ion-menu-toggle autoHide autoHide="true" *ngFor="let pages of navigate">
+				<ion-item routerDirection="forward">
+					<ion-icon [name]="pages.icon" slot="start"></ion-icon>
+					{{ pages.title }}
+				</ion-item>
+			</ion-menu-toggle>
+		</ion-list>
+	</ion-content>
+</ion-menu>

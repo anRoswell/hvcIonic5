@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+	<ion-toolbar>
+		<ion-title> Pacientes </ion-title>
+	</ion-toolbar>
+	<ion-toolbar>
+		<!-- Searchbar with a custom debounce -->
+		<ion-searchbar debounce="500" placeholder="Buscar paciente" (ionChange)="search($event)"></ion-searchbar>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+	<ion-grid fixed>
+		<ion-row>
+			<ion-col size="12">
+				<ion-list>
+					<ion-item button (click)="registerConsultPatient(patient)" detail *ngFor="let patient of patients">
+						<ion-avatar slot="start">
+							<img src="./assets/img/grupoServicioDefault.jpeg" />
+						</ion-avatar>
+						<ion-label>
+							<h2>{{patient.name}}</h2>
+							<h3>Doc: {{patient.document}}</h3>
+							<p>Contrato: {{patient.epsId}}</p>
+						</ion-label>
+					</ion-item>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

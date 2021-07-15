@@ -1,0 +1,21 @@
+<ion-list>
+	<ion-list-header><h1>Opciones</h1></ion-list-header>
+	<ion-item button (click)="newSolicitud()">
+		<!-- <ion-icon slot="start" name="add"></ion-icon> -->
+		Nuevo
+	</ion-item>
+	<ion-item button>
+		<!-- <ion-icon slot="start" name="add"></ion-icon> -->
+		Nuevo
+	</ion-item>
+	<ion-item button>
+		<!-- <ion-icon slot="start" name="add"></ion-icon> -->
+		Nuevo
+	</ion-item>
+
+	<ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
+	<ion-item lines="none" detail="false" button (click)="dismissPopover()">
+		<ion-icon slot="start" name="close-circle" size="large"></ion-icon>
+		Cerrar
+	</ion-item>
+</ion-list>

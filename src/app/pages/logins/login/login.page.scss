@@ -1,0 +1,38 @@
+ion-content {
+	--background: url('./../../../../assets/img/background.png') 0 0/100% 100% no-repeat !important;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.small-text {
+	display: block;
+	font-size: 14px;
+	text-align: center;
+	margin-top: 10px;
+}
+
+ion-item {
+	--background: transparent !important;
+	margin-bottom: 5px;
+}
+
+ion-input {
+	background-color: white;
+	border-radius: 5px;
+	padding: 5px !important;
+}
+
+ion-grid {
+	--ion-grid-width-xs: 100%;
+	--ion-grid-width-sm: 540px;
+	--ion-grid-width-md: 540px;
+	--ion-grid-width-lg: 540px;
+	--ion-grid-width-xl: 540px;
+}
+
+input {
+	box-shadow: 1px 1px 5px 1px #887e7e;
+}
