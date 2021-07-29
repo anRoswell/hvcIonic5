@@ -50,9 +50,10 @@ export class MainFormPage implements OnInit {
 		})
 
 		this.form = this.fb.group({
-			date: [Validators.required],
-			initialHour: [Validators.required],
-			finalHour: [Validators.required],
+			id: [],
+			date: [new Date(), Validators.required],
+			initialHour: ['', Validators.required],
+			finalHour: ['', Validators.required],
 			patientId: [Validators.required],
 			patientSign: [[Validators.required]],
 			sign: [Validators.required],
@@ -65,39 +66,50 @@ export class MainFormPage implements OnInit {
 	}
 
 	async ngOnInit() {
-		const time = [0, 1]
+		let time1
+		let time2
 		this.patientSelected = await this.storageService.read('patientSelected')
 		if (this.action === 'edit') {
+			this.btnLabel = 'Editar'
 			this.atentionByPatient = await this.storageService.read('atentionByPatient')
 			console.log(this.atentionByPatient)
+			time1 = this.atentionByPatient.initialHour.split(':')
+			time2 = this.atentionByPatient.finalHour.split(':')
+			console.log(this.atentionByPatient.initialHour)
+			console.log(this.atentionByPatient.finalHour)
+			const initialHour = new Date(2021, 1, 1, parseInt(time1[0]), parseInt(time1[1])).toISOString()
+			const finalHour = new Date(2021, 1, 1, parseInt(time2[0]), parseInt(time2[1])).toISOString()
 			this.form.patchValue({
+				id: this.atentionByPatient.id,
 				date: format(new Date(), 'dd/MM/yyyy'),
 				patientId: this.atentionByPatient.patientId,
 				userIdCreatedAt: this.userLogin.id,
-				initialHour: format(new Date(this.atentionByPatient.initialHour), 'dd/MM/yyyy hh:mm:ss'),
-				finalHour: format(new Date(this.atentionByPatient.finalHour), 'dd/MM/yyyy hh:mm:ss'),
 				observation: this.atentionByPatient.observation,
 				action: this.action,
+				patientSign: false,
+				initialHour,
+				finalHour,
 			})
+			this.horaIngresoValue = new Date(2021, 1, 1, time1[0], time1[1]).toISOString()
+			this.horaFinalValue = new Date(2021, 1, 1, time2[0], time2[1]).toISOString()
 			this.sign = `http://localhost:3000/${this.atentionByPatient.signUrl}`
 			//this.editForm()
 		} else {
-			this.btnLabel = 'Editar'
+			this.btnLabel = 'Guardar'
 			this.form.reset()
 			this.form.patchValue({
 				date: format(new Date(), 'dd/MM/yyyy'),
 				patientId: this.patientSelected.id,
 				userIdCreatedAt: this.userLogin,
 				action: this.action,
+				patientSign: false,
 			})
-			this.horaIngresoValue = new Date(2021, 1, 1, time[0], time[1]).toISOString()
-			this.horaFinalValue = new Date(2021, 1, 1, time[0], time[1]).toISOString()
 		}
 	}
 
 	//#region FORM
 
-	saveForm() {
+	saveEditForm() {
 		this.checkconnectionService.CheckConection().then(async (_) => {
 			this.httpService.Post(this.form.value, 'atencion').subscribe((resp) => {
 				console.log(resp)

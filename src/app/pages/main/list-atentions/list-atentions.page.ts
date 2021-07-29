@@ -53,53 +53,63 @@ export class ListAtentionsPage implements OnInit {
 		this.checkconnectionService.CheckConection().then(async (_) => {
 			const params = new HttpParams().set('userIdCreatedAt', this.userLogin.id.toString())
 			this.httpService.GetParams(`atentionsByPatient/${this.patientSelected.id}`, params).subscribe((resp) => {
+				console.log(resp)
 				this.atentionsByPatient = resp
 			})
 		})
 	}
 
 	async registerConsultPatient() {
-		const modal = await this.modalController.create({
-			component: MainFormPage,
-			componentProps: {
+		// const modal = await this.modalController.create({
+		// 	component: MainFormPage,
+		// 	componentProps: {
+		// 		action: 'register',
+		// 	},
+		// })
+
+		// modal.onDidDismiss().then((result: OverlayEventDetail) => {
+		// 	if (result.data !== undefined) {
+		// 		if (result.data.close !== 'yes') {
+		// 		}
+		// 	}
+		// })
+		// return await modal.present()
+
+		const navigationExtras: NavigationExtras = {
+			queryParams: {
 				action: 'register',
 			},
-		})
-
-		modal.onDidDismiss().then((result: OverlayEventDetail) => {
-			if (result.data !== undefined) {
-				if (result.data.close !== 'yes') {
-				}
-			}
-		})
-		return await modal.present()
+			fragment: 'anchor',
+		}
+		this.reouter.navigate(['main/main-form'], navigationExtras)
 	}
 
 	async editAtention(atention: any) {
 		atention.action = 'edit'
 		this.storageService.save('atentionByPatient', atention)
-		const modal = await this.modalController.create({
-			component: MainFormPage,
-			componentProps: {
-				action: 'edit',
-			},
-		})
 
-		modal.onDidDismiss().then((result: OverlayEventDetail) => {
-			if (result.data !== undefined) {
-				if (result.data.close !== 'yes') {
-				}
-			}
-		})
-		return await modal.present()
-
-		// const navigationExtras: NavigationExtras = {
-		// 	queryParams: {
+		// const modal = await this.modalController.create({
+		// 	component: MainFormPage,
+		// 	componentProps: {
 		// 		action: 'edit',
 		// 	},
-		// 	fragment: 'anchor',
-		// }
-		// this.reouter.navigate(['main/main-form'], navigationExtras)
+		// })
+
+		// modal.onDidDismiss().then((result: OverlayEventDetail) => {
+		// 	if (result.data !== undefined) {
+		// 		if (result.data.close !== 'yes') {
+		// 		}
+		// 	}
+		// })
+		// return await modal.present()
+
+		const navigationExtras: NavigationExtras = {
+			queryParams: {
+				action: 'edit',
+			},
+			fragment: 'anchor',
+		}
+		this.reouter.navigate(['main/main-form'], navigationExtras)
 	}
 
 	validateAtentionsByPatient(): boolean {
